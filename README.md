@@ -1,1 +1,1 @@
-# java-starthere
+# Random-Acts-Generator App
