@@ -16,8 +16,8 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/otherapis")
+//@RestController
+//@RequestMapping("/otherapis")
 public class APIsController
 {
     private static final Logger logger = LoggerFactory.getLogger(RolesController.class);

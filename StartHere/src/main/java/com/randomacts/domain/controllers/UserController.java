@@ -1,7 +1,12 @@
 package com.randomacts.domain.controllers;
 
+import com.randomacts.domain.models.ErrorDetail;
 import com.randomacts.domain.models.User;
 import com.randomacts.domain.services.UserService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +33,10 @@ public class UserController
     @Autowired
     private UserService userService;
 
+
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @ApiOperation(value = "Returns a list of all users. Requires admin role.", responseContainer = "List")
     @GetMapping(value = "/users",
                 produces = {"application/json"})
     public ResponseEntity<?> listAllUsers(HttpServletRequest request)
@@ -41,6 +49,7 @@ public class UserController
 
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @ApiOperation(value = "Returns a single user based on user id. Requires Admin Role.", responseContainer = "User.class")
     @GetMapping(value = "/user/{userId}",
                 produces = {"application/json"})
     public ResponseEntity<?> getUser(HttpServletRequest request,
@@ -53,7 +62,7 @@ public class UserController
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
-
+    @ApiOperation(value = "Returns currently logged in user's username.")
     @GetMapping(value = "/getusername",
                 produces = {"application/json"})
     @ResponseBody
@@ -65,7 +74,11 @@ public class UserController
     }
 
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @ApiOperation(value = "Creates a new user.", notes = "The newly created User id will be sent in the location header", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "User Created", response = void.class),
+            @ApiResponse(code = 404, message = "Failed to create new user.", response = ErrorDetail.class)
+    })
     @PostMapping(value = "/user",
                  consumes = {"application/json"},
                  produces = {"application/json"})
@@ -85,11 +98,17 @@ public class UserController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @ApiOperation(value = "Updates user based on User ID.", notes = "The newly created User id will be sent in the location header", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "User Updated", response = void.class),
+            @ApiResponse(code = 404, message = "Failed to update user.", response = ErrorDetail.class)
+    })
     @PutMapping(value = "/user/{id}")
     public ResponseEntity<?> updateUser(HttpServletRequest request,
                                         @RequestBody
                                                 User updateUser,
+                                        @ApiParam(value = "id", required = true, example = "1")
                                         @PathVariable
                                                 long id)
     {
@@ -101,8 +120,14 @@ public class UserController
 
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @ApiOperation(value = "Deletes user based on user id.", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "User Deleted", response = void.class),
+            @ApiResponse(code = 404, message = "Failed to delete user.", response = ErrorDetail.class)
+    })
     @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteUserById(HttpServletRequest request,
+                                            @ApiParam(value = "id", required = true, example = "1")
                                             @PathVariable
                                                     long id)
     {
