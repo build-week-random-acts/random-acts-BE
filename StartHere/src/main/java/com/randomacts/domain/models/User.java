@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import springfox.documentation.service.Contact;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -37,6 +38,11 @@ public class User extends Auditable
                orphanRemoval = true)
     @JsonIgnoreProperties("user")
     private List<Quote> quotes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user",
+                cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<Contacts> contacts = new ArrayList<>();
 
     public User()
     {
@@ -120,5 +126,15 @@ public class User extends Auditable
         }
 
         return rtnList;
+    }
+
+    public List<Contacts> getContacts()
+    {
+        return contacts;
+    }
+
+    public void setContacts(List<Contacts> contacts)
+    {
+        this.contacts = contacts;
     }
 }
