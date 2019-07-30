@@ -16,8 +16,7 @@ public class Quote extends Auditable
     private String quote;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid",
-                nullable = false)
+    @JoinColumn(name = "userid")
     @JsonIgnoreProperties({"quotes", "hibernateLazyInitializer"})
     private User user;
 
@@ -29,6 +28,11 @@ public class Quote extends Auditable
     {
         this.quote = quote;
         this.user = user;
+    }
+
+    public Quote(String quote)
+    {
+        this.quote = quote;
     }
 
     public long getQuotesid()

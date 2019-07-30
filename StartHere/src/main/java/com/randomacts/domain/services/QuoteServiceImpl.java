@@ -55,6 +55,9 @@ public class QuoteServiceImpl implements QuoteService
     @Override
     public Quote save(Quote quote)
     {
+        Quote newQuote = new Quote();
+        newQuote.setQuote(quote.getQuote());
+
         return quoterepos.save(quote);
     }
 

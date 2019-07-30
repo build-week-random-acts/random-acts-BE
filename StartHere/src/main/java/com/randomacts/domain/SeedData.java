@@ -4,6 +4,7 @@ import com.randomacts.domain.models.Quote;
 import com.randomacts.domain.models.Role;
 import com.randomacts.domain.models.User;
 import com.randomacts.domain.models.UserRoles;
+import com.randomacts.domain.services.QuoteService;
 import com.randomacts.domain.services.RoleService;
 import com.randomacts.domain.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class SeedData implements CommandLineRunner
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    QuoteService quoteService;
 
 
     @Override
@@ -70,5 +74,16 @@ public class SeedData implements CommandLineRunner
         users.add(new UserRoles(new User(), r2));
         User u5 = new User("Jane", "password", users);
         userService.save(u5);
+
+//        // Quotes
+
+
+        Quote q1 = new Quote("Tweet or Facebook message a genuine compliment to three people right now.");
+        Quote q2 = new Quote("While you're out, compliment a parent on how well-behaved their child is.");
+
+        quoteService.save(q1);
+        quoteService.save(q2);
+
+
     }
 }
