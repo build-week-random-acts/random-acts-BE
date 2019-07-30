@@ -1,9 +1,7 @@
 package com.randomacts.domain;
 
-import com.randomacts.domain.models.Quote;
-import com.randomacts.domain.models.Role;
-import com.randomacts.domain.models.User;
-import com.randomacts.domain.models.UserRoles;
+import com.randomacts.domain.models.*;
+import com.randomacts.domain.services.ContactService;
 import com.randomacts.domain.services.QuoteService;
 import com.randomacts.domain.services.RoleService;
 import com.randomacts.domain.services.UserService;
@@ -26,6 +24,9 @@ public class SeedData implements CommandLineRunner
 
     @Autowired
     QuoteService quoteService;
+
+    @Autowired
+    ContactService contactService;
 
 
     @Override
@@ -84,6 +85,13 @@ public class SeedData implements CommandLineRunner
         quoteService.save(q1);
         quoteService.save(q2);
 
+        // Contacts
+
+        Contacts c1 = new Contacts("Beth", "Fonzarelli", "bethf@gmail.com", "999-999-9999");
+        Contacts c2 = new Contacts("Jude", "Mackenraw", "judem@gmail.com", "999-999-9999");
+
+        contactService.save(c1);
+        contactService.save(c2);
 
     }
 }

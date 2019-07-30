@@ -26,8 +26,7 @@ public class Contacts extends Auditable
     private String phone;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid",
-            nullable = false)
+    @JoinColumn(name = "userid")
     @JsonIgnoreProperties({"contacts", "hibernateLazyInitializer"})
     private User user;
 
@@ -41,6 +40,15 @@ public class Contacts extends Auditable
         this.lname = lname;
         this.email = email;
         this.phone = phone;
+    }
+
+    public Contacts(String fname, String lname, String email, String phone, User user)
+    {
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.phone = phone;
+        this.user = user;
     }
 
     public long getContactid()

@@ -50,7 +50,15 @@ public class ContactServiceImpl implements ContactService
     @Override
     public Contacts save(Contacts contacts)
     {
-        return contactsrepo.save(contacts);
+
+        Contacts newContact = new Contacts();
+
+        newContact.setFname(contacts.getFname());
+        newContact.setLname(contacts.getLname());
+        newContact.setEmail(contacts.getEmail());
+        newContact.setPhone(contacts.getPhone());
+
+        return contactsrepo.save(newContact);
     }
 
     @Override

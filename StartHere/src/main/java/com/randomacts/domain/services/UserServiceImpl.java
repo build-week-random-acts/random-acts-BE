@@ -1,9 +1,11 @@
 package com.randomacts.domain.services;
 
 import com.randomacts.domain.exceptions.ResourceNotFoundException;
+import com.randomacts.domain.models.Contacts;
 import com.randomacts.domain.models.Quote;
 import com.randomacts.domain.models.User;
 import com.randomacts.domain.models.UserRoles;
+import com.randomacts.domain.repository.ContactsRepository;
 import com.randomacts.domain.repository.RoleRepository;
 import com.randomacts.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
     @Autowired
     private RoleRepository rolerepos;
+
+    @Autowired
+    private ContactsRepository contactrepos;
 
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
@@ -128,6 +133,14 @@ public class UserServiceImpl implements UserDetailsService, UserService
                     for (Quote q : user.getQuotes())
                     {
                         currentUser.getQuotes().add(new Quote(q.getQuote(), currentUser));
+                    }
+                }
+
+                if (user.getContacts().size() > 0)
+                {
+                    for (Contacts c : user.getContacts())
+                    {
+                        currentUser.getContacts().add(new Contacts(c.getFname(), c.getLname(), c.getEmail(), c.getPhone(), currentUser));
                     }
                 }
 

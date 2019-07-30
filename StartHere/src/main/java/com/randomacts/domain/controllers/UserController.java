@@ -99,7 +99,7 @@ public class UserController
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @ApiOperation(value = "Updates user based on User ID.", notes = "The newly created User id will be sent in the location header", response = void.class)
+    @ApiOperation(value = "Updates user based on User ID.", notes = "tbd", response = void.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "User Updated", response = void.class),
             @ApiResponse(code = 404, message = "Failed to update user.", response = ErrorDetail.class)
