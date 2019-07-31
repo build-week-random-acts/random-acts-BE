@@ -83,9 +83,57 @@ public class SeedData implements CommandLineRunner
 
         Quote q1 = new Quote("Tweet or Facebook message a genuine compliment to three people right now.");
         Quote q2 = new Quote("While you're out, compliment a parent on how well-behaved their child is.");
+        Quote q3 = new Quote("Don't write the angry internet comment you're thinking of writing.");
+        Quote q4 = new Quote("When everyone around you is gossiping about someone, be the one to butt in with something nice.");
+        Quote q5 = new Quote("Cook a meal or do a load of laundry for a friend who just had a baby or is going through a difficult time.");
+        Quote q6 = new Quote("If you walk by a car with an expired parking meter, put a quarter in it.");
+        Quote q7 = new Quote("Put your phone away.");
+        Quote q8 = new Quote("Hang out with the person who just moved to town.");
+        Quote q9 = new Quote("Offer a homeless person your leftovers bag from the restaurant.");
+        Quote q10 = new Quote("Each time you get a new piece of clothing, donate an old one.");
+        Quote q11 = new Quote("Don't interrupt when someone else is speaking.");
+        Quote q12 = new Quote("Email or write an old teacher who made a difference in your life.");
+        Quote q13 = new Quote("Compliment someone to their boss.");
+        Quote q14 = new Quote("Leave a nice server the biggest tip you can afford.");
+        Quote q15 = new Quote("Smile at someone on the street, just because.");
+        Quote q16 = new Quote("Let someone into your lane. They're probably in a rush just like you.");
+        Quote q17 = new Quote("Forgive someone, and never bring up the issue again.");
+        Quote q18 = new Quote("Talk to the shy person who's sitting by themselves at a party.");
+        Quote q19 = new Quote("Leave your New York Times or Us Weekly behind for someone else to read at the coffeeshop, the doctor's office, or on a plane.");
+        Quote q20 = new Quote("Cut someone some slack.");
+        Quote q21 = new Quote("Help a mother with her baby stroller.");
+        Quote q22 = new Quote("Become a big brother or big sister.");
+        Quote q23 = new Quote("Let the person behind you at the supermarket checkout with one or two items go ahead of you.");
+        Quote q24 = new Quote("Write someone a letter. Like a real letter, on paper. And mail it!");
+        Quote q25 = new Quote("Give away stuff for free on Craigslist.");
+
 
         quoteService.save(q1);
         quoteService.save(q2);
+        quoteService.save(q3);
+        quoteService.save(q4);
+        quoteService.save(q5);
+        quoteService.save(q6);
+        quoteService.save(q7);
+        quoteService.save(q8);
+        quoteService.save(q9);
+        quoteService.save(q10);
+        quoteService.save(q11);
+        quoteService.save(q12);
+        quoteService.save(q13);
+        quoteService.save(q14);
+        quoteService.save(q15);
+        quoteService.save(q16);
+        quoteService.save(q17);
+        quoteService.save(q18);
+        quoteService.save(q19);
+        quoteService.save(q20);
+        quoteService.save(q21);
+        quoteService.save(q22);
+        quoteService.save(q23);
+        quoteService.save(q24);
+        quoteService.save(q25);
+
 
         // Contacts
         users.add(new UserRoles(new User(), r2));
