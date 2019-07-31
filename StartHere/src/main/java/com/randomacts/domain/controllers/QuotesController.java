@@ -1,7 +1,11 @@
 package com.randomacts.domain.controllers;
 
+import com.randomacts.domain.models.ErrorDetail;
 import com.randomacts.domain.models.Quote;
 import com.randomacts.domain.services.QuoteService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +82,23 @@ public class QuotesController
         responseHeaders.setLocation(newQuoteURI);
 
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+    }
+
+
+    @ApiOperation(value = "Updates quote based on quote ID.", notes = "Updates quote info based on quote ID", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Quote Updated", response = void.class),
+            @ApiResponse(code = 404, message = "Failed to update quote.", response = ErrorDetail.class)
+    })
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<?> updateQuote(HttpServletRequest request,
+                                         @RequestBody Quote updatedQuote,
+                                         @PathVariable long id)
+    {
+        logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed");
+
+        quoteService.update(updatedQuote, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

@@ -28,8 +28,8 @@ public class ContactsController
 
     @ApiOperation(value = "Updates contact information based on contact ID.", notes = "Updates contact info based on contact ID", response = void.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "User Updated", response = void.class),
-            @ApiResponse(code = 404, message = "Failed to update user.", response = ErrorDetail.class)
+            @ApiResponse(code = 201, message = "Contact Updated", response = void.class),
+            @ApiResponse(code = 404, message = "Failed to update contact.", response = ErrorDetail.class)
     })
     @PutMapping(value = "/contact/{id}")
     public ResponseEntity<?> updateContact(HttpServletRequest request,

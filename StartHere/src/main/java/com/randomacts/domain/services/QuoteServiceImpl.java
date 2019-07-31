@@ -62,6 +62,18 @@ public class QuoteServiceImpl implements QuoteService
     }
 
     @Override
+    public Quote update(Quote quote, long id)
+    {
+        Quote currentQuote = quoterepos.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(Long.toString(id)));
+        if (quote.getQuote() != null)
+        {
+            currentQuote.setQuote(quote.getQuote());
+        }
+        return quoterepos.save(currentQuote);
+    }
+
+    @Override
     public List<Quote> findByUserName(String username)
     {
         List<Quote> list = new ArrayList<>();
