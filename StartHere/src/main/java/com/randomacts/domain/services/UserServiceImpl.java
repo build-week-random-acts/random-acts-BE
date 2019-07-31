@@ -89,6 +89,11 @@ public class UserServiceImpl implements UserDetailsService, UserService
             newUser.getQuotes().add(new Quote(q.getQuote(), newUser));
         }
 
+        for (Contacts c : user.getContacts())
+        {
+            newUser.getContacts().add(new Contacts(c.getFname(), c.getLname(), c.getEmail(), c.getPhone(), newUser));
+        }
+
         return userrepos.save(newUser);
     }
 

@@ -48,6 +48,7 @@ public class SeedData implements CommandLineRunner
         User u1 = new User("admin", "password", admins);
         u1.getQuotes().add(new Quote("A creative man is motivated by the desire to achieve, not by the desire to beat others", u1));
         u1.getQuotes().add(new Quote("The question isn't who is going to let me; it's who is going to stop me.", u1));
+        u1.getContacts().add(new Contacts("Beth", "Fonzarelli", "bethf@gmail.com", "999-999-9999", u1));
         userService.save(u1);
 
         // data, user
@@ -55,6 +56,7 @@ public class SeedData implements CommandLineRunner
         datas.add(new UserRoles(new User(), r3));
         datas.add(new UserRoles(new User(), r2));
         User u2 = new User("cinnamon", "1234567", datas);
+        u1.getContacts().add(new Contacts("Jude", "Mackenraw", "judem@gmail.com", "999-999-9999", u2));
         userService.save(u2);
 
         // user
@@ -86,7 +88,7 @@ public class SeedData implements CommandLineRunner
         quoteService.save(q2);
 
         // Contacts
-
+        users.add(new UserRoles(new User(), r2));
         Contacts c1 = new Contacts("Beth", "Fonzarelli", "bethf@gmail.com", "999-999-9999");
         Contacts c2 = new Contacts("Jude", "Mackenraw", "judem@gmail.com", "999-999-9999");
 
