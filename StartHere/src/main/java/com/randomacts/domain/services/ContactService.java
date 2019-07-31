@@ -16,4 +16,6 @@ public interface ContactService
 
     Contacts save(Contacts contacts);
 
+    Contacts update(Contacts contacts, long id);
+
 }

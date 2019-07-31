@@ -70,4 +70,34 @@ public class ContactServiceImpl implements ContactService
         list.removeIf(c -> !c.getUser().getUsername().equalsIgnoreCase(username));
         return list;
     }
+
+    @Override
+    public Contacts update(Contacts contacts, long id)
+    {
+        Contacts currentContact = contactsrepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(Long.toString(id)));
+
+        if (contacts.getFname() != null)
+        {
+            currentContact.setFname(contacts.getFname());
+        }
+
+        if (contacts.getLname() != null)
+        {
+            currentContact.setLname(contacts.getLname());
+        }
+
+        if (contacts.getEmail() != null)
+        {
+            currentContact.setEmail(contacts.getEmail());
+        }
+
+        if (contacts.getPhone() != null)
+        {
+            currentContact.setPhone(contacts.getPhone());
+        }
+
+
+        return contactsrepo.save(currentContact);
+    }
 }
