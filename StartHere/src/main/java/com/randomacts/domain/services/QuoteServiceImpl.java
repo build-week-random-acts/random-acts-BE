@@ -37,14 +37,16 @@ public class QuoteServiceImpl implements QuoteService
     {
         if (quoterepos.findById(id).isPresent())
         {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (quoterepos.findById(id).get().getUser().getUsername().equalsIgnoreCase(authentication.getName()))
-            {
-                quoterepos.deleteById(id);
-            } else
-            {
-                throw new ResourceNotFoundException(id + " " + authentication.getName());
-            }
+
+            quoterepos.deleteById(id);
+//            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//            if (quoterepos.findById(id).get().getUser().getUsername().equalsIgnoreCase(authentication.getName()))
+//            {
+//                quoterepos.deleteById(id);
+//            } else
+//            {
+//                throw new ResourceNotFoundException(id + " " + authentication.getName());
+//            }
         } else
         {
             throw new ResourceNotFoundException(Long.toString(id));

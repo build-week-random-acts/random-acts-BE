@@ -2,7 +2,9 @@ package com.randomacts.domain.services;
 
 import com.randomacts.domain.exceptions.ResourceNotFoundException;
 import com.randomacts.domain.models.Contacts;
+import com.randomacts.domain.models.User;
 import com.randomacts.domain.repository.ContactsRepository;
+import com.randomacts.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +21,9 @@ public class ContactServiceImpl implements ContactService
 
     @Autowired
     private ContactsRepository contactsrepo;
+
+    @Autowired
+    private UserRepository userrepos;
 
     @Override
     public List<Contacts> findAll()
@@ -50,13 +55,19 @@ public class ContactServiceImpl implements ContactService
     @Override
     public Contacts save(Contacts contacts)
     {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userrepos.findByUsername(authentication.getName());
 
         Contacts newContact = new Contacts();
 
-        newContact.setFname(contacts.getFname());
-        newContact.setLname(contacts.getLname());
-        newContact.setEmail(contacts.getEmail());
-        newContact.setPhone(contacts.getPhone());
+        if (currentUser != null)
+        {
+            newContact.setFname(contacts.getFname());
+            newContact.setLname(contacts.getLname());
+            newContact.setEmail(contacts.getEmail());
+            newContact.setPhone(contacts.getPhone());
+            newContact.setUser(currentUser);
+        }
 
         return contactsrepo.save(newContact);
     }
