@@ -1,1 +1,1 @@
-# random-acts-BE
+# Random-Acts-Generator App
