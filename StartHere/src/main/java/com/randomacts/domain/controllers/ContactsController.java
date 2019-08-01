@@ -5,6 +5,7 @@ import com.randomacts.domain.models.Contacts;
 import com.randomacts.domain.models.ErrorDetail;
 import com.randomacts.domain.services.ContactService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
@@ -78,6 +79,19 @@ public class ContactsController
     {
         logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed");
         contactService.update(updateContact, id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @ApiOperation(value = "Deletes contact based on user id.", response = void.class)
+    @DeleteMapping("/contact/{id}")
+    public ResponseEntity<?> deleteContactById(HttpServletRequest request,
+                                               @ApiParam(value = "id", required = true, example = "1")
+                                               @PathVariable long id)
+    {
+        logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed");
+
+        contactService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
