@@ -17,12 +17,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = QuotesController.class, secure = false)
@@ -72,7 +74,7 @@ public class QuotesControllerTest
     @Test
     public void listAllQuotes() throws Exception
     {
-        String apiUrl ="quotes/quotes";
+        String apiUrl ="/quotes/quotes";
 
         Mockito.when(quoteService.findAll()).thenReturn(quoteList);
 
@@ -86,13 +88,32 @@ public class QuotesControllerTest
         assertEquals(er, tr);
     }
 
-    @org.junit.Test
-    public void updateQuote1()
+    @Test
+    public void updateQuote1() throws Exception
     {
+        String apiUrl = "/quotes/update/{id}";
+
+        Quote q2 = new Quote("Test me!");
+        q2.setQuotesid(10);
+
+        Mockito.when(quoteService.update(q2, 10)).thenReturn(q2);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String quoteString = mapper.writeValueAsString(q2);
+
+        RequestBuilder rb = MockMvcRequestBuilders.put(apiUrl, 10)
+                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+                .content(quoteString);
+
+        mockMvc.perform(rb).andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 
-    @org.junit.Test
-    public void deleteQuoteById1()
+    @Test
+    public void deleteQuoteById1() throws Exception
     {
+        String apiUrl = "/quotes/quote/{id}";
+
+        RequestBuilder rb = MockMvcRequestBuilders.delete(apiUrl, "1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+        mockMvc.perform(rb).andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 }
