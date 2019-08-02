@@ -53,7 +53,7 @@ public class ContactServiceImpl implements ContactService
 
     @Transactional
     @Override
-    public Contacts save(Contacts contacts)
+    public Contacts save(Contacts contacts) throws NullPointerException
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userrepos.findByUsername(authentication.getName());

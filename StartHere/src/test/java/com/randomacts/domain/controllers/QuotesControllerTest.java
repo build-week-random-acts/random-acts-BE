@@ -1,36 +1,98 @@
 package com.randomacts.domain.controllers;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.randomacts.domain.models.*;
+import com.randomacts.domain.services.QuoteService;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class QuotesControllerTest
+@RunWith(SpringRunner.class)
+@WebMvcTest(value = QuotesController.class, secure = false)
+public class QuotesControllerTest
 {
+    @Autowired
+    private MockMvc mockMvc;
 
-    @BeforeEach
-    void setUp()
+    @MockBean
+    private QuoteService quoteService;
+
+    private List<Quote> quoteList;
+    @Before
+    public void setUp() throws Exception
     {
+        quoteList = new ArrayList<>();
+
+        Quote q1 = new Quote("Tweet or Facebook message a genuine compliment to three people right now.");
+        Quote q2 = new Quote("While you're out, compliment a parent on how well-behaved their child is.");
+        Quote q3 = new Quote("Don't write the angry internet comment you're thinking of writing.");
+        Quote q4 = new Quote("When everyone around you is gossiping about someone, be the one to butt in with something nice.");
+        Quote q5 = new Quote("Cook a meal or do a load of laundry for a friend who just had a baby or is going through a difficult time.");
+
+        q1.setQuotesid(1);
+        quoteList.add(q1);
+
+        q2.setQuotesid(2);
+        quoteList.add(q2);
+
+        q3.setQuotesid(3);
+        quoteList.add(q3);
+
+        q4.setQuotesid(4);
+        quoteList.add(q4);
+
+        q5.setQuotesid(5);
+        quoteList.add(q5);
+
+
     }
 
-    @AfterEach
-    void tearDown()
+    @After
+    public void tearDown() throws Exception
     {
     }
 
     @Test
-    void addNewQuote()
+    public void listAllQuotes() throws Exception
+    {
+        String apiUrl ="quotes/quotes";
+
+        Mockito.when(quoteService.findAll()).thenReturn(quoteList);
+
+        RequestBuilder rb = MockMvcRequestBuilders.get(apiUrl).accept(MediaType.APPLICATION_JSON);
+        MvcResult r = mockMvc.perform(rb).andReturn();
+        String tr = r.getResponse().getContentAsString();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String er = mapper.writeValueAsString(quoteList);
+
+        assertEquals(er, tr);
+    }
+
+    @org.junit.Test
+    public void updateQuote1()
     {
     }
 
-    @Test
-    void updateQuote()
-    {
-    }
-
-    @Test
-    void deleteQuoteById()
+    @org.junit.Test
+    public void deleteQuoteById1()
     {
     }
 }
