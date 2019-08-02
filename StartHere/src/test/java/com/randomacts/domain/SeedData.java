@@ -137,11 +137,11 @@ public class SeedData implements CommandLineRunner
 
         // Contacts
         users.add(new UserRoles(new User(), r2));
-        Contacts c1 = new Contacts("Beth", "Fonzarelli", "bethf@gmail.com", "999-999-9999");
-        Contacts c2 = new Contacts("Jude", "Mackenraw", "judem@gmail.com", "999-999-9999");
-
-        contactService.save(c1);
-        contactService.save(c2);
+//        Contacts c1 = new Contacts("Beth", "Fonzarelli", "bethf@gmail.com", "999-999-9999");
+//        Contacts c2 = new Contacts("Jude", "Mackenraw", "judem@gmail.com", "999-999-9999");
+//
+//        contactService.save(c1);
+//        contactService.save(c2);
 
     }
 }
